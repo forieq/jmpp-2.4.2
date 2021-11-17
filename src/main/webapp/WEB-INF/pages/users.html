@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h2>Users</h2>
+<table>
+  <tr>
+    <td>Id</td>
+    <td>First Name</td>
+    <td>Last Name</td>
+    <td>Email</td>
+    <td>Actions</td>
+  </tr>
+
+  <tr th:each="user:${user}">
+    <td><p th:text="${user.id}"></p> </td>
+    <td><a th:href="@{/users/{id}(id=${user.id})}" th:text="${user.firstName}"><p th:text="${user.firstName}"></p></a></td>
+    <td><p th:text="${user.lastName}"></p></td>
+    <td><p th:text="${user.email}"></p></td>
+    <td>
+      <form th:method="GET" th:action="@{/users/{id}/edit(id=${user.id})}">
+        <input type="submit" class="editButton" value="Edit">
+      </form>
+      <form th:method="DELETE" th:action="@{/users/{id}(id=${user.id})}">
+        <input type="submit" class="deleteButton" value="Delete">
+      </form>
+
+    </td>
+  </tr>
+</table>
+<br>
+<form th:method="GET" th:action="@{admin/add}">
+  <input type="submit" class="addButton" value="Add User">
+</form>
+<br/>
+</body>
+</html>

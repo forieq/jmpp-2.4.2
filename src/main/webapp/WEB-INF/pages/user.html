@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>User table</title>
+    <style>
+        .deleteButton {
+            background: red;
+            color: white;
+            font-size: 12pt;
+        }
+        .editButton {
+            background: blue;
+            color: white;
+            font-size: 12pt;
+        }
+        .mainMenuButton {
+            background: darkgrey;
+            color: black;
+            font-size: 12pt;
+        }
+        .logOutButton {
+            background: purple;
+            color: black;
+            font-size: 12pt;
+        }
+    </style>
+</head>
+<body>
+<h2>User:</h2>
+<div>First Name:</div>
+<div th:text="${user.firstName}"></div>
+<br>
+<div>Last Name:</div>
+<div th:text="${user.lastName}"></div>
+<br>
+<div>Email:</div>
+<div th:text="${user.email}"></div>
+<br/>
+<form sec:authorize="hasRole('ROLE_ADMIN')" th:method="DELETE" th:action="@{/admin/{id}(id=${user.id})}">
+    <input type="submit" class="deleteButton" value="Delete">
+</form>
+<br/>
+<form sec:authorize="hasRole('ROLE_ADMIN')" th:method="GET" th:action="@{/admin/{id}/edit(id=${user.id})}">
+    <input type="submit" class="editButton" value="Edit">
+</form>
+<br/>
+<form sec:authorize="hasRole('ROLE_ADMIN')" th:method="GET" th:action="@{/admin}">
+    <input type="submit" class="mainMenuButton" value="Main menu">
+</form>
+<br/>
+<form th:method="GET" th:action="@{/logout}">
+    <input type="submit" class="logOutButton" value="Logout">
+</form>
+<br/>
+</body>
+</html>
